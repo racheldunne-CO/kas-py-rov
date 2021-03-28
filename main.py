@@ -22,7 +22,7 @@ def get_square_moves(board, square):
     # - edge of board
     # - another of your pieces at end point
     # - other pieces on path (apart from Knights)
-    return (square, endpoints)
+    return [(square, endpoint) for endpoint in endpoints]
 
 
 def add_vectors(v1, v2):
