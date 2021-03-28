@@ -74,13 +74,6 @@ def get_square_moves(board, square):
     return [(square, endpoint) for endpoint in endpoints]
 
 
-def add_vectors(v1, v2):
-    """Sum two tuples as if they are vectors."""
-    assert len(v1) == 2
-    assert len(v2) == 2
-    return (v1[0] + v2[0], v1[1] + v2[1])
-
-
 def get_move_vectors(piece):
     """
     For a given piece, list the possible vectors it can move in
@@ -93,6 +86,17 @@ def get_move_vectors(piece):
     # TODO add other pieces
     # TODO add fancy pawn moves (taking diagonally, two moves at start)
     return [(1, 0)] if colour == Colour.BLACK else [(-1, 0)]
+
+
+def add_vectors(v1, v2):
+    """Sum two tuples as if they are vectors."""
+    assert len(v1) == 2
+    assert len(v2) == 2
+    return (v1[0] + v2[0], v1[1] + v2[1])
+
+
+def is_on_board(square):
+    return square[0] >= 0 and square[1] >= 0 and square[0] < 8 and square[1] < 8
 
 
 def score_move(move):
