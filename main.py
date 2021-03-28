@@ -10,8 +10,8 @@ def best_move(board, colour):
 
 
 def get_permitted_moves(board, colour):
-    # TODO loop over squares and call get_square_moves
-    return [((0, 1), (3, 4)), ((4, 5), (3, 3))]
+    # TODO filter by colour
+    return [move for move in get_square_moves(board, square) for square in board]
 
 
 def get_square_moves(board, square):
@@ -22,7 +22,7 @@ def get_square_moves(board, square):
     # - edge of board
     # - another of your pieces at end point
     # - other pieces on path (apart from Knights)
-    return endpoints
+    return (square, endpoints)
 
 
 def add_vectors(v1, v2):
