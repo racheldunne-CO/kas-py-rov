@@ -38,9 +38,19 @@ def best_move(board, colour):
 
 
 def get_permitted_moves(board, colour):
-    # TODO filter by colour
-    square_moves = [get_square_moves(board, square) for square in board_squares()]
-    return [move for move_list in square_moves for move in move_list] # Flatten
+    colour_squares = [
+        square
+        for square in board_squares()
+        if piece_is_colour(board[square[0]][square[1]], colour)
+    ]
+    square_moves = [get_square_moves(board, square) for square in colour_squares]
+    return [move for move_list in square_moves for move in move_list]  # Flatten
+
+
+def piece_is_colour(piece, colour):
+    if piece == None:
+        return False
+    return piece[1] == colour
 
 
 def board_squares():
@@ -85,4 +95,4 @@ def score_move(move):
 
 
 if __name__ == "__main__":
-    print(best_move(mk_initial_board(), None))
+    print(best_move(mk_initial_board(), Colour.WHITE))
