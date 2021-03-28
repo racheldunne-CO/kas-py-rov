@@ -43,7 +43,8 @@ def get_permitted_moves(board, colour):
 
 
 def get_square_moves(board, square):
-    piece = board[square[0]][square[1]]
+    row, col = square
+    piece = board[row][col]
     move_vectors = get_move_vectors(piece)
     endpoints = [add_vectors(square, move) for move in move_vectors]
     # TODO filter out with the following criteria
