@@ -1,3 +1,31 @@
+from pprint import pprint
+from enum import Enum
+
+
+# TODO add simple printing with letters
+class PieceType(Enum):
+    PAWN = 1
+
+
+# TODO add simple printing with letters
+class Colour(Enum):
+    BLACK = 1
+    WHITE = 2
+
+
+def mk_initial_board():
+    return [
+        [None] * 8,  # TODO real row
+        [(PieceType.PAWN, Colour.BLACK)] * 8,
+        [None] * 8,
+        [None] * 8,
+        [None] * 8,
+        [None] * 8,
+        [(PieceType.PAWN, Colour.WHITE)] * 8,
+        [None] * 8,  # TODO real row
+    ]
+
+
 def best_move(board, colour):
     permitted_moves = get_permitted_moves(board, colour)
     scores = [
