@@ -65,11 +65,12 @@ def board_squares():
 def get_square_moves(board, square):
     row, col = square
     piece = board[row][col]
+    colour = piece[1]
     move_vectors = get_move_vectors(piece)
     endpoints = [add_vectors(square, move) for move in move_vectors]
     endpoints = [endpoint for endpoint in endpoints if is_on_board(endpoint)]
+    endpoints = [endpoint for endpoint in endpoints if not is_occupied_by(colour, endpoint, board))]
     # TODO filter out with the following criteria
-    # - another of your pieces at end point
     # - other pieces on path (apart from Knights)
     return [(square, endpoint) for endpoint in endpoints]
 
