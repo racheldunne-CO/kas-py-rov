@@ -111,10 +111,35 @@ def is_occupied_by(colour, square, board):
     return piece[1] == colour
 
 
+def has_clear_path(square, endpoint, board):
+    return True
+
+
+def get_path(square, endpoint):
+    if endpoint[0] - square[0] == 0:
+        steps = range(endpoint[1] - square[1])
+        path = [(square[0], square[1] + step) for step in steps if step != 0]
+    elif endpoint[1] - square[1] == 0:
+        steps = range(endpoint[0] - square[0])
+        path = [(square[0] + step, square[1]) for step in steps if step != 0]
+    else:
+        row_steps = range(endpoint[0] - square[0])
+        col_steps = range(endpoint[1] - square[1])
+        path = [
+            (square[0] + row_step, square[1] + col_step)
+            for row_step in row_steps
+            for col_step in col_steps
+            if row_step == col_step and row_step != 0
+        ]
+    return path
+
+
 def score_move(move):
     # TODO (big)
     return move[0][0]
 
 
 if __name__ == "__main__":
-    print(best_move(mk_initial_board(), Colour.WHITE))
+    # print(best_move(mk_initial_board(), Colour.WHITE))
+    # print(get_path_2((0, 0), (0, 3)))
+    print(get_path((4, 4), (1, 1)))
