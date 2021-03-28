@@ -115,23 +115,37 @@ def has_clear_path(square, endpoint, board):
     return True
 
 
-def get_path(square, endpoint):
-    if endpoint[0] - square[0] == 0:
-        steps = range(endpoint[1] - square[1])
-        path = [(square[0], square[1] + step) for step in steps if step != 0]
-    elif endpoint[1] - square[1] == 0:
-        steps = range(endpoint[0] - square[0])
-        path = [(square[0] + step, square[1]) for step in steps if step != 0]
-    else:
-        row_steps = range(endpoint[0] - square[0])
-        col_steps = range(endpoint[1] - square[1])
-        path = [
-            (square[0] + row_step, square[1] + col_step)
-            for row_step in row_steps
-            for col_step in col_steps
-            if row_step == col_step and row_step != 0
-        ]
+def get_path(startpoint, endpoint):
+    diff = subtract_vectors(endpoint, startpoint)
+    num_squares_on_path = max([abs(d) for d in diff]) - 1
+
+    # Start with un-filled-in path values
+    path = [startpoint] * num_squares_on_path
+
+    # Then replace them with correct values along each axis
+    for axis in range(2):
+        direction = 1 if abs(diff[axis]) == diff[axis] else -1
+        path_idx = 0
+        for i in range(startpoint[axis] + direction, endpoint[axis], direction):
+            path[path_idx] = update_tuple_element(path[path_idx], i, axis)
+            path_idx += 1
+
     return path
+
+
+def subtract_vectors(v1, v2):
+    """Subtract two tuples as if they are vectors."""
+    assert len(v1) == 2
+    assert len(v2) == 2
+    return (v1[0] - v2[0], v1[1] - v2[1])
+
+
+def update_tuple_element(tuple, new_val, idx):
+    assert len(tuple) <= 2
+    if idx == 0:
+        return (new_val, tuple[1])
+    if idx == 1:
+        return (tuple[0], new_val)
 
 
 def score_move(move):
