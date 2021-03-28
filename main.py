@@ -99,6 +99,13 @@ def is_on_board(square):
     return square[0] >= 0 and square[1] >= 0 and square[0] < 8 and square[1] < 8
 
 
+def is_occupied_by(colour, square, board):
+    piece = board[square[0]][square[1]]
+    if piece is None:
+        return False
+    return piece[1] == colour
+
+
 def score_move(move):
     # TODO (big)
     return move[0][0]
