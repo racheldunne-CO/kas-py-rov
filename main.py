@@ -85,12 +85,18 @@ def get_move_vectors(piece):
     """
     For a given piece, list the possible vectors it can move in
     e.g. A black pawn can move +1 y
+
+    Generally, blacks move visually down the board (increasing the row values)
+    and white moves up
     """
-    # TODO add real implementation, starting with pawns only
-    return [(0, 1)]
+    colour = piece[1]
+    # TODO add other pieces
+    # TODO add fancy pawn moves (taking diagonally, two moves at start)
+    return [(1, 0)] if colour == Colour.BLACK else [(-1, 0)]
 
 
 def score_move(move):
+    # TODO (big)
     return move[0][0]
 
 
