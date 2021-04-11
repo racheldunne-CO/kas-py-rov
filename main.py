@@ -5,6 +5,7 @@ from enum import Enum
 # TODO add simple printing with letters
 class PieceType(Enum):
     PAWN = 1
+    KNIGHT = 99999
 
 
 # TODO add simple printing with letters
@@ -68,14 +69,14 @@ def get_square_moves(board, square):
     colour = piece[1]
     move_vectors = get_move_vectors(piece)
     endpoints = [add_vectors(square, move) for move in move_vectors]
+    # TODO extract more efficient filter function for a single list comprehension
     endpoints = [endpoint for endpoint in endpoints if is_on_board(endpoint)]
     endpoints = [
         endpoint
         for endpoint in endpoints
         if not is_occupied_by(colour, endpoint, board)
+        and has_clear_path(square, endpoint, board)
     ]
-    # TODO filter out with the following criteria
-    # - other pieces on path (apart from Knights)
     return [(square, endpoint) for endpoint in endpoints]
 
 
@@ -112,6 +113,14 @@ def is_occupied_by(colour, square, board):
 
 
 def has_clear_path(square, endpoint, board):
+    piece = board[square[0]][square[1]]
+    if piece == PieceType.KNIGHT:
+        return True
+    squares_on_path = get_path(square, endpoint)
+    for path_square in squares_on_path:
+        path_piece = board[path_square[0]][path_square[1]]
+        if path_piece is not None:
+            return False
     return True
 
 
