@@ -6,7 +6,11 @@ from utils import add_vectors, subtract_vectors, update_tuple_element
 # TODO add simple printing with letters
 class PieceType(Enum):
     PAWN = 1
-    KNIGHT = 99999
+    KNIGHT = 2
+    BISHOP = 3
+    ROOK = 4
+    QUEEN = 5
+    KING = 6
 
 
 # TODO add simple printing with letters
@@ -17,14 +21,32 @@ class Colour(Enum):
 
 def mk_initial_board():
     return [
-        [None] * 8,  # TODO real row
+        [
+            (PieceType.ROOK, Colour.BLACK),
+            (PieceType.KNIGHT, Colour.BLACK),
+            (PieceType.BISHOP, Colour.BLACK),
+            (PieceType.KING, Colour.BLACK),
+            (PieceType.QUEEN, Colour.BLACK),
+            (PieceType.BISHOP, Colour.BLACK),
+            (PieceType.KNIGHT, Colour.BLACK),
+            (PieceType.ROOK, Colour.BLACK),
+        ],
         [(PieceType.PAWN, Colour.BLACK)] * 8,
         [None] * 8,
         [None] * 8,
         [None] * 8,
         [None] * 8,
         [(PieceType.PAWN, Colour.WHITE)] * 8,
-        [None] * 8,  # TODO real row
+        [
+            (PieceType.ROOK, Colour.WHITE),
+            (PieceType.KNIGHT, Colour.WHITE),
+            (PieceType.BISHOP, Colour.WHITE),
+            (PieceType.QUEEN, Colour.WHITE),
+            (PieceType.KING, Colour.WHITE),
+            (PieceType.BISHOP, Colour.WHITE),
+            (PieceType.KNIGHT, Colour.WHITE),
+            (PieceType.ROOK, Colour.WHITE),
+        ],
     ]
 
 
@@ -142,6 +164,6 @@ def score_move(move):
 
 
 if __name__ == "__main__":
-    # print(best_move(mk_initial_board(), Colour.WHITE))
+    print(best_move(mk_initial_board(), Colour.WHITE))
     # print(get_path_2((0, 0), (0, 3)))
-    print(get_path((4, 4), (1, 1)))
+    # print(get_path((4, 4), (1, 1)))
