@@ -1,5 +1,6 @@
 from pprint import pprint
 from enum import Enum
+from utils import add_vectors, subtract_vectors, update_tuple_element
 
 
 # TODO add simple printing with letters
@@ -94,13 +95,6 @@ def get_move_vectors(piece):
     return [(1, 0)] if colour == Colour.BLACK else [(-1, 0)]
 
 
-def add_vectors(v1, v2):
-    """Sum two tuples as if they are vectors."""
-    assert len(v1) == 2
-    assert len(v2) == 2
-    return (v1[0] + v2[0], v1[1] + v2[1])
-
-
 def is_on_board(square):
     return square[0] >= 0 and square[1] >= 0 and square[0] < 8 and square[1] < 8
 
@@ -140,21 +134,6 @@ def get_path(startpoint, endpoint):
             path_idx += 1
 
     return path
-
-
-def subtract_vectors(v1, v2):
-    """Subtract two tuples as if they are vectors."""
-    assert len(v1) == 2
-    assert len(v2) == 2
-    return (v1[0] - v2[0], v1[1] - v2[1])
-
-
-def update_tuple_element(tuple, new_val, idx):
-    assert len(tuple) <= 2
-    if idx == 0:
-        return (new_val, tuple[1])
-    if idx == 1:
-        return (tuple[0], new_val)
 
 
 def score_move(move):
